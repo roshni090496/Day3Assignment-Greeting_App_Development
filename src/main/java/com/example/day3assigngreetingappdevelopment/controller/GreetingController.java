@@ -1,5 +1,6 @@
 package com.example.day3assigngreetingappdevelopment.controller;
 
+import com.example.day3assigngreetingappdevelopment.model.Greeting;
 import com.example.day3assigngreetingappdevelopment.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-public class CreatingController {
+public class GreetingController {
     //UC1
 //    @RequestMapping("/hello")
 //    public String Hello() {
@@ -24,15 +25,27 @@ public class CreatingController {
 //        return "Hello " + name + "!";
 //    }
 //
-    //UC2
+
     public static final String template = "Hello & Welcome to the greeting app, %s";
     public final AtomicLong counter = new AtomicLong();
     @Autowired
     public GreetingService service;
 
+    //UC2
+    @GetMapping("/greeting")
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name){
+        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
+    @RequestMapping("/welcome")
+
+    //UC3
+    public String displayMessage(){
+        return service.greetingMessage();
+    }
     @GetMapping("/greetingsWithUser")
     public String greetingWithUserName(@RequestParam(value = "firstName", defaultValue = "") String firstName,
                                        @RequestParam(value = "lastName", defaultValue = "") String lastName) {
         return service.greetingWithUserName(firstName, lastName);
     }
+
 }
