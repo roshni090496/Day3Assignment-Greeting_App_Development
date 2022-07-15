@@ -1,13 +1,16 @@
 package com.example.day3assigngreetingappdevelopment.service;
 
+import com.example.day3assigngreetingappdevelopment.model.Greeting;
+import com.example.day3assigngreetingappdevelopment.repository.GreetingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GreetingService {
-
+    @Autowired
+    private GreetingRepository repository;
     public String greetingMessage(){
         return "Hello World!";
-
     }
     public String greetingWithUserName(String firstName, String lastName) {
         if(firstName.isEmpty() && lastName.isEmpty())
@@ -20,5 +23,9 @@ public class GreetingService {
         }
         else
             return "Hello & Welcome to the greeting app, "+firstName+" "+lastName+"!";
+    }
+    public Greeting saveGreetings(Greeting greeting){
+
+        return repository.save(greeting);
     }
 }
