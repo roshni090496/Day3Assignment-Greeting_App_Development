@@ -53,6 +53,10 @@ public class GreetingController {
         return service.saveGreetings(greeting);
     }
 
-
+    //UC5
+    @GetMapping("/greetingById/{id}")
+    public Greeting getGreetingById(@PathVariable Integer id){
+        return service.findGreetingById(id);
+    }
 
 }

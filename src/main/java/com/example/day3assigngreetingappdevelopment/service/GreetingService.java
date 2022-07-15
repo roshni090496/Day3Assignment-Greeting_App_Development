@@ -25,7 +25,9 @@ public class GreetingService {
             return "Hello & Welcome to the greeting app, "+firstName+" "+lastName+"!";
     }
     public Greeting saveGreetings(Greeting greeting){
-
         return repository.save(greeting);
+    }
+    public Greeting findGreetingById(Integer id) {
+        return repository.findById(id).orElse(null);
     }
 }
